@@ -5,48 +5,70 @@ using namespace std;
 
 class Book {
 private:
+	int NumBook;
 	string NameBook;
 public:
 	Book() {
 		cout << "Book()\n";
-		NameBook = nullptr;
+		NameBook = "";
+		NumBook = NULL;
 	}
-	Book(string NameBook) {
-		cout << "setNameToBook(string Name)\n";
+	Book(int NumBook, string NameBook) {
+		this->NumBook = NumBook;
 		this->NameBook = NameBook;
+		cout << "Book(param):" << NumBook << " " << NameBook << endl;
 	}
 	string getNameBook() {
-		return NameBook;
+		return this->NameBook;
+	}
+	virtual string classname() { // переопределяемый метод класса Book
+		return "Book";
+	}
+	virtual bool isA(string name) {
+		return this->classname() == name;
 	}
 	void setNameBook(string NameBook) {
 		this->NameBook = NameBook;
 	}
-	~Book() {
+	string NoVirtualClassName() {
+		return "Book";
+	}
+	virtual ~Book() {
 		cout << "~Book: " << NameBook << endl;
-		NameBook = nullptr;
+		NameBook = "";
 	}
 };
 
 class Genre : public Book {
 private:
-	int numBook;
 	string NameGenre;
 public:
 	Genre() {
 		cout << "Genre()\n";
-		NameGenre = nullptr;
+		NameGenre = "";
 	}
-	Genre(int numBook, string NameGenre, string NameBook) {
-		this->numBook = numBook;
+	Genre(string NameGenre, string NameBook) {
 		this->NameGenre = NameGenre;
 		this->setNameBook(NameBook);
-		cout << "Конструктор с параметрами Genre: "
-			<< numBook << " "
+		cout << "Genre(param): "
 			<< NameGenre << " "
 			<< NameBook << "\n";
 	}
-	~Genre() {
+	void setGenreBook(string NameBook, string GenreBook) {
+		this->NameGenre = GenreBook;
+		this->setNameBook(NameBook);
+	}
+	string classname() { // переопределяемый метод класса Genre
+		return "Genre";
+	}
+	virtual bool isA(string name) {
+		return this->classname() == name;
+	}
+	string NoVirtualClassName() {
+		return "Genre";
+	}
+	virtual ~Genre() {
 		cout << "~Genre: " << NameGenre << endl;
-		NameGenre = nullptr;
+		NameGenre = "";
 	}
 };
